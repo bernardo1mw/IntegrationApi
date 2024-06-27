@@ -1,73 +1,71 @@
-Este projeto implementa um servidor de API REST utilizando NodeJs e NestJs, retornando dados de usuários após aplicar transformações específicas, como ofuscação de e-mails e formatação de datas, conforme requisitos detalhados abaixo.
+# SaaS Integration API
 
-Tecnologias Utilizadas
-NodeJs
-NestJs
-Axios (para requisições HTTP)
-Jest (para testes unitários)
-Supertest (para testes de integração)
+Este projeto implementa um servidor de API REST utilizando Node.js e NestJS, retornando dados de usuários após aplicar transformações específicas, como ofuscação de e-mails e formatação de datas, conforme requisitos.
 
-Pré-requisitos
-Node.js instalado na máquina local
-Arquivo .env configurado (como em .env.example)
+## Tecnologias Utilizadas
 
-Instalação
-Clone o repositório para a sua máquina local:
+- Node.js
+- NestJS
+- Axios (para requisições HTTP)
+- Jest (para testes unitários)
+- Supertest (para testes de integração)
 
-bash
-Copiar código
-git clone <URL_DO_REPOSITORIO>
-Instale as dependências do projeto:
+## Pré-requisitos
 
-bash
-Copiar código
-cd <NOME_DO_DIRETORIO>
-npm install
-Crie um arquivo .env na raiz do projeto e defina as variáveis de ambiente necessárias:
+- Node.js instalado na máquina local
+- Arquivo `.env` configurado (conforme `.env.example`)
 
-env
-Copiar código
-API_URL=http://localhost:3000
-Execução
+## Instalação
+
+1. Clone o repositório para a sua máquina local:
+
+    ```bash
+    git clone <URL_DO_REPOSITORIO>
+    ```
+
+2. Instale as dependências do projeto:
+
+    ```bash
+    cd <NOME_DO_DIRETORIO>
+    npm install
+    ```
+
+3. Crie um arquivo `.env` na raiz do projeto e defina as variáveis de ambiente necessárias:
+
+    ```env
+    API_URL=http://localhost:3000
+    ```
+
+## Execução
+
+Primeiro inicie a api mock com
+```bash
+npm install -g json-server
+cd config
+json-server --watch db.json
+```
+
+## Testes
+
+Para rodar os testes execute
+```bash
+npx jest
+```
+
 Para iniciar o servidor:
 
-bash
-Copiar código
+```bash
 npm start
-O servidor estará disponível em http://localhost:3001.
+```
 
-Testes
-Execute os testes unitários e de integração:
+## Outros comentários
+O framework NestJs foi escolhido pela minah familiaridade com ele e por seus diversos benefícios e popularidade.
 
-bash
-Copiar código
-npm test
-Detalhamento das Funcionalidades
-Obfuscação de E-mail
-Os e-mails são ofuscados com base nas seguintes regras:
+Algumas vantagens são:
+- Modularidade e Organização de Código: NestJS incentiva uma estrutura de código modular, o que facilita a organização do projeto em módulos distintos. Isso pode ser útil para separar a lógica de integração com a API, transformação de dados, manipulação de erros e outros aspectos do projeto.
 
-Se o domínio for niuco.com.br, o e-mail não é ofuscado.
-Se o domínio for diferente de niuco.com.br, apenas os primeiros e últimos 2 caracteres do alias são visíveis, com o restante substituído por asteriscos.
-Exemplos:
+ - Injeção de Dependência: A injeção de dependência (DI) é um padrão de design que torna o código mais testável e gerenciável. NestJS tem um poderoso sistema de DI embutido que pode simplificar a gestão das dependências no seu projeto.
 
-joao.silva@niuco.com.br → joao.silva@niuco.com.br
-maria.oliveira@gmail.com → ma**\*\*\*\***a@gmail.com
-Formatação de Data
-A data da última atividade dos usuários é fornecida pela API em formato Unix Epoch e é convertida para o padrão ISO-8601 considerando o fuso horário UTC de Brasília.
+ - Suporte para Middleware e Guards: NestJS oferece suporte integrado para middleware e guards, permitindo adicionar facilmente funcionalidades como autenticação, autorização e logging.
 
-Verificação de Status de Pagamento e Atividade
-Os usuários têm seus status verificados com base nos seguintes critérios:
-
-Atividade: Determinada pelo campo status da API. Usuários com status igual a disabled são considerados inativos.
-Pagamento: Determinado pelo campo role da API. As regras são:
-viewer, system: não pagantes
-editor, admin: pagantes, a menos que o usuário esteja inativo.
-Pipeline CI/CD
-Foi configurado um pipeline CI/CD usando GitHub Actions para garantir a integração e entrega contínua do projeto. O pipeline inclui as seguintes etapas:
-
-Checkout do código
-Configuração do ambiente Node.js
-Instalação das dependências
-Execução de linting
-Execução de testes
-Criação da build
+ - Testabilidade: NestJS é projetado com testabilidade em mente. Ele fornece utilitários para facilitar a criação de testes unitários e de integração.
