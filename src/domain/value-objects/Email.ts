@@ -3,6 +3,7 @@ export default class Email {
 
   constructor(readonly email: string) {
     if (!this.isValid(email)) {
+      console.log(email);
       throw new Error('Invalid Email');
     }
     this.value = email.toLowerCase();

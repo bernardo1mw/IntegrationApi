@@ -11,13 +11,17 @@ export default class User {
   ) {}
 
   static async create(input: CreateInput) {
-    let paying = false;
-    let isActive = false;
-    if (
-      input.status == 'enabled' &&
-      (input.role == 'editor' || input.role == 'admin')
-    ) {
+    let paying: boolean;
+    let isActive: boolean;
+
+    if (input.status == 'disabled') {
+      paying = false;
+      isActive = false;
+    } else if (input.role == 'editor' || input.role == 'admin') {
       paying = true;
+      isActive = true;
+    } else {
+      paying = false;
       isActive = true;
     }
 
