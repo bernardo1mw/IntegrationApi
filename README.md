@@ -1,73 +1,73 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+Este projeto implementa um servidor de API REST utilizando NodeJs e NestJs, retornando dados de usuários após aplicar transformações específicas, como ofuscação de e-mails e formatação de datas, conforme requisitos detalhados abaixo.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Tecnologias Utilizadas
+NodeJs
+NestJs
+Axios (para requisições HTTP)
+Jest (para testes unitários)
+Supertest (para testes de integração)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Pré-requisitos
+Node.js instalado na máquina local
+Arquivo .env configurado (como em .env.example)
 
-## Description
+Instalação
+Clone o repositório para a sua máquina local:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+bash
+Copiar código
+git clone <URL_DO_REPOSITORIO>
+Instale as dependências do projeto:
 
-## Installation
+bash
+Copiar código
+cd <NOME_DO_DIRETORIO>
+npm install
+Crie um arquivo .env na raiz do projeto e defina as variáveis de ambiente necessárias:
 
-```bash
-$ npm install
-```
+env
+Copiar código
+API_URL=http://localhost:3000
+Execução
+Para iniciar o servidor:
 
-## Running the app
+bash
+Copiar código
+npm start
+O servidor estará disponível em http://localhost:3001.
 
-```bash
-# development
-$ npm run start
+Testes
+Execute os testes unitários e de integração:
 
-# watch mode
-$ npm run start:dev
+bash
+Copiar código
+npm test
+Detalhamento das Funcionalidades
+Obfuscação de E-mail
+Os e-mails são ofuscados com base nas seguintes regras:
 
-# production mode
-$ npm run start:prod
-```
+Se o domínio for niuco.com.br, o e-mail não é ofuscado.
+Se o domínio for diferente de niuco.com.br, apenas os primeiros e últimos 2 caracteres do alias são visíveis, com o restante substituído por asteriscos.
+Exemplos:
 
-## Test
+joao.silva@niuco.com.br → joao.silva@niuco.com.br
+maria.oliveira@gmail.com → ma**\*\*\*\***a@gmail.com
+Formatação de Data
+A data da última atividade dos usuários é fornecida pela API em formato Unix Epoch e é convertida para o padrão ISO-8601 considerando o fuso horário UTC de Brasília.
 
-```bash
-# unit tests
-$ npm run test
+Verificação de Status de Pagamento e Atividade
+Os usuários têm seus status verificados com base nos seguintes critérios:
 
-# e2e tests
-$ npm run test:e2e
+Atividade: Determinada pelo campo status da API. Usuários com status igual a disabled são considerados inativos.
+Pagamento: Determinado pelo campo role da API. As regras são:
+viewer, system: não pagantes
+editor, admin: pagantes, a menos que o usuário esteja inativo.
+Pipeline CI/CD
+Foi configurado um pipeline CI/CD usando GitHub Actions para garantir a integração e entrega contínua do projeto. O pipeline inclui as seguintes etapas:
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Checkout do código
+Configuração do ambiente Node.js
+Instalação das dependências
+Execução de linting
+Execução de testes
+Criação da build
